@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  database:
+    image: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=mosprom
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5433:5432
+  backend:
+    build: backend
+    command: bash -c "python migrate.py && python run.py"
+    environment:
+      DEBUG: 1
+      DATABASE_URL: postgresql://postgres:password@database:5432/mosprom
+      ROOT_PATH: /api
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile.yarn
+  proxy:
+    build: proxy
+    ports:
+      - 81:80
+
+volumes:
+  pg_data: {}

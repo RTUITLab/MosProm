@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  backend:
+    command: bash -c "python migrate.py && python run.py"
+    environment:
+      DEBUG: 0
+      DATABASE_URL: ${DATABASE_URL?}
+      ROOT_PATH: /api
+  proxy:
+    build: proxy
+    ports:
+      - ${PROXY_PORT?}:80
