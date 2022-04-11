@@ -5,5 +5,7 @@ services:
     image: ghcr.io/rtuitlab/mosprom/backend
   frontend:
     image: ghcr.io/rtuitlab/mosprom/frontend
+  bot:
+    image: ghcr.io/rtuitlab/mosprom/bot
   proxy:
     image: ghcr.io/rtuitlab/mosprom/proxy

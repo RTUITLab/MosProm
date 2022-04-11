@@ -16,12 +16,15 @@ services:
     command: bash -c "python migrate.py && python run.py"
     environment:
       DEBUG: 1
-      DATABASE_URL: postgresql://postgres:password@database:5432/mosprom
+      DATABASE_URL: postgresql://postgres:TheDim0n@164.92.252.250:5432/mosprom_elevators
       ROOT_PATH: /api
   frontend:
     build:
       context: frontend
       dockerfile: Dockerfile.yarn
+  telegram:
+    build: bot
+    command: bash -c "uvicorn main:app"
   proxy:
     build: proxy
     ports:
